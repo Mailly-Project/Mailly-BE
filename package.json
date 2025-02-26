@@ -1,0 +1,19 @@
+{
+  "devDependencies": {
+    "@nestia/benchmark": "^0.3.0",
+    "nestia": "^6.4.0",
+    "ts-node": "^10.9.2",
+    "ts-patch": "^3.3.0",
+    "typescript": "~5.7.2"
+  },
+  "dependencies": {
+    "@nestia/core": "^4.6.2",
+    "@nestia/e2e": "^0.8.2",
+    "@nestia/fetcher": "^4.6.2",
+    "@nestia/sdk": "^4.6.2",
+    "typia": "^7.6.4"
+  },
+  "scripts": {
+    "prepare": "ts-patch install && typia patch"
+  }
+}
