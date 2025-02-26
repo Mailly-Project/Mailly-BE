@@ -1,0 +1,23 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "http://localhost:37001",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "version": "0.0.1",
+    "title": "mailly-be",
+    "description": "backend code for mailly service",
+    "license": {
+      "name": "UNLICENSED"
+    }
+  },
+  "paths": {},
+  "components": {
+    "schemas": {}
+  },
+  "tags": [],
+  "x-samchon-emended": true
+}
