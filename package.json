@@ -1,10 +1,19 @@
 {
-  "devDependencies": {
-    "@nestia/benchmark": "^0.3.0",
-    "nestia": "^6.4.0",
-    "ts-node": "^10.9.2",
-    "ts-patch": "^3.3.0",
-    "typescript": "~5.7.2"
+  "name": "mailly-be",
+  "version": "0.0.1",
+  "description": "backend code for mailly service",
+  "homepage": "https://github.com/Mailly-Project/Mailly-BE#readme",
+  "bugs": {
+    "url": "https://github.com/Mailly-Project/Mailly-BE/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mailly-Project/Mailly-BE.git"
+  },
+  "license": "UNLICENSED",
+  "author": "",
+  "scripts": {
+    "prepare": "ts-patch install && typia patch"
   },
   "dependencies": {
     "@nestia/core": "^4.6.2",
@@ -13,7 +22,11 @@
     "@nestia/sdk": "^4.6.2",
     "typia": "^7.6.4"
   },
-  "scripts": {
-    "prepare": "ts-patch install && typia patch"
+  "devDependencies": {
+    "@nestia/benchmark": "^0.3.0",
+    "nestia": "^6.4.0",
+    "ts-node": "^10.9.2",
+    "ts-patch": "^3.3.0",
+    "typescript": "~5.7.2"
   }
 }
