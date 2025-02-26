@@ -12,3 +12,15 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+generator markdown {
+  provider = "prisma-markdown"
+  title    = "PROJECT"
+  output   = "../docs/ERD.md"
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+}
