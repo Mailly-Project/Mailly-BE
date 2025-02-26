@@ -38,6 +38,7 @@
     "@nestjs/throttler": "^6.4.0",
     "@prisma/client": "^6.4.1",
     "cache-manager": "^6.4.0",
+    "source-map-support": "^0.5.21",
     "typia": "^7.6.4"
   },
   "devDependencies": {
