@@ -39,3 +39,8 @@ export interface InitialPaginationResponseType {
   list: any[];
   count: number;
 }
+
+export type Try<T> = ResponseForm<T>;
+export type TryCatch<T, E extends ERROR> = ResponseForm<T> | E;
+export type TryPagination<T extends InitialPaginationResponseType> = PaginationForm<T>;
+export type TryCatchPagination<T extends InitialPaginationResponseType, E extends ERROR> = PaginationForm<T> | E;
