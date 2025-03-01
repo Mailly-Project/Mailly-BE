@@ -26,7 +26,7 @@ export class GlobalEnviroments {
    *     - `dev`: Development mode.
    *     - `prod`: Production mode.
    */
-  public static get mode(): "local" | "dev" | "prod" {
+  public static get mode(): SystemModeValue {
     return (modeWrapper.value ??= environments.get().MODE);
   }
 
@@ -60,6 +60,8 @@ interface SystemEnvironments {
 interface SystemMode {
   value?: "local" | "dev" | "prod";
 }
+
+type SystemModeValue = "local" | "dev" | "prod";
 
 const modeWrapper: SystemMode = {};
 
