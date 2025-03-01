@@ -12,7 +12,7 @@ import typia from "typia";
  * @since 2025-02-28
  */
 export class GlobalEnviroments {
-  public static testing: boolean = false;
+  public static readonly testing: boolean = false;
 
   public static readonly prisma: PrismaClient = new PrismaClient();
 
