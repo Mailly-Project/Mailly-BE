@@ -12,7 +12,7 @@ export type Merge<F, S> = {
  * Response Types
  */
 
-interface ResponseForm<T> {
+export interface ResponseForm<T> {
   result: true;
   code: 1000;
   requestToResponse?: `${number}ms`;
