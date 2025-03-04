@@ -9,7 +9,8 @@
     "build": "npm run build:sdk && npm run compile",
     "build:sdk": "rimraf ../../src/api/functional && cd ../.. && npx nestia sdk && cd packages/api",
     "compile": "rimraf lib && tsc",
-    "deploy": "npm run build && npm publish --access=public",
+    "deploy:latest": "npm run build && npm publish --access=public --tag=latest",
+    "deploy:next": "npm run build && npm publish --access=public --tag=next",
     "prepare": "ts-patch install && typia patch"
   },
   "repository": {
