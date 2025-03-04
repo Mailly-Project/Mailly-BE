@@ -10,6 +10,7 @@ on:
 
 jobs:
   builder:
+    name: builder
     runs-on: ubuntu-latest
 
     services:
