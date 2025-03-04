@@ -4,12 +4,14 @@ import { APP_GUARD } from "@nestjs/core";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { ConfigModule } from "@nestjs/config";
 import { LoggerMiddleware } from "./common/middleware/logging.middleware";
+import { MonitorModule } from "./modules/monitor.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     ThrottlerModule.forRoot({ throttlers: [{ ttl: 60, limit: 60 }] }),
     CacheModule.register({ isGlobal: true }),
+    MonitorModule,
   ],
   controllers: [],
   providers: [
