@@ -43,3 +43,6 @@ jobs:
 
       - name: Create DB Schema
         run: npm run schema postgres root
+
+      - name: Run Tests
+        run: npm run test -- --reset true --simultaneous 16
