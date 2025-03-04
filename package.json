@@ -22,7 +22,7 @@
     "build:swagger": "nestia swagger",
     "build:test": "rimraf bin && tsc -p test/tsconfig.json",
     "dev": "npm run build:test -- --watch",
-    "prepare": "ts-patch install && typia patch && npm run build:prisma",
+    "prepare": "ts-patch install && typia patch",
     "------------------------DEPLOYS------------------------": "",
     "start": "node lib/executable/server",
     "start:dev": "nest start --watch",
@@ -44,6 +44,8 @@
   },
   "devDependencies": {
     "@nestia/benchmark": "^0.3.0",
+    "@types/express": "^5.0.0",
+    "@types/swagger-ui-express": "^4.1.8",
     "copy-webpack-plugin": "^12.0.2",
     "nestia": "^6.4.0",
     "prisma": "^6.4.1",
