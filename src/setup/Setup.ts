@@ -3,16 +3,17 @@ import cp from "child_process";
 import { GlobalEnviroments } from "../config/enviroments.config";
 
 export namespace Setup {
-
   /**
    * Reset the database schema and seed the database with initial data.
-   * 
+   *
    * @author luke
    * @since 2025-03-01
    */
   export async function schema(): Promise<void> {
     if (GlobalEnviroments.testing === false) {
-      throw new Error("Error on Setup.schema(): unable to reset database in non-test mode.");
+      throw new Error(
+        "Error on Setup.schema(): unable to reset database in non-test mode.",
+      );
     }
 
     const execute = (type: string) => (argv: string) =>
@@ -30,10 +31,10 @@ export namespace Setup {
 
   /**
    * Seed the database with initial data.
-   * 
+   *
    * @author luke
    * @since 2025-03-01
-   * 
+   *
    * @todo - 2025-03-01(luke): Implement the seeding logic.
    */
   export async function seed(): Promise<void> {}

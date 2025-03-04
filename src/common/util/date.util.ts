@@ -13,7 +13,7 @@ export namespace DateUtil {
    * @param hms - Optional boolean flag indicating whether to include hours, minutes, and seconds in the output string.
    *              If true, the output will include time in 'HH:MM:SS' format. Defaults to false.
    * @returns A string representing the date in 'YYYY-MM-DD' format, or 'YYYY-MM-DD HH:MM:SS' format if `hms` is true.
-   * 
+   *
    * @author luke
    * @since 2025.03.02
    */
@@ -48,16 +48,16 @@ export namespace DateUtil {
    * @param x - The first date, either as a Date object or a string.
    * @param y - The second date, either as a Date object or a string.
    * @returns An object representing the difference in years, months, and days.
-   * 
+   *
    * @example
    * ```ts
    * const x = new Date("2025-03-02");
    * const y = new Date("2025-03-01");
-   * 
+   *
    * const diff = DateUtil.diff(x, y);
    * console.log(diff); // { years: 0, months: 0, date: 1 }
    * ```
-   * 
+   *
    * @author luke
    * @since 2025.03.02
    */
@@ -105,8 +105,9 @@ export namespace DateUtil {
 
   export function addMonths(date: Date, value: number): Date {
     date = new Date(date);
-    
-    const year: number = date.getFullYear() + Math.floor((date.getMonth() + value) / 12);
+
+    const year: number =
+      date.getFullYear() + Math.floor((date.getMonth() + value) / 12);
     const month: number = (date.getMonth() + value) % 12;
     const lastDayOfMonth: number = lastDate(year, month - 1);
 

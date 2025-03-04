@@ -6,7 +6,7 @@ import typia from "typia";
 
 /**
  * Global enviroments for the application.
- * 
+ *
  * @author luke0408
  * @see https://github.com/samchon/backend/blob/master/src/MyGlobal.ts
  * @since 2025-02-28
@@ -32,7 +32,7 @@ export class GlobalEnviroments {
 
   /**
    * Set the mode of the application.
-   * 
+   *
    * @param mode The mode of the application.
    *     - `local`: Local development mode.
    *     - `dev`: Development mode.

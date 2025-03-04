@@ -2,11 +2,11 @@ import path from "path";
 import { GlobalEnviroments } from "./enviroments.config";
 
 const EXTENSION = __filename.slice(-2);
-if (EXTENSION === 'js') require("source-map-support").install();
+if (EXTENSION === "js") require("source-map-support").install();
 
 /**
  * Global configuration for the application.
- * 
+ *
  * @author luke
  * @since 2025-03-01
  */
