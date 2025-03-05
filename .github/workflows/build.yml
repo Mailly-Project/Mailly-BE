@@ -39,14 +39,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Lint Check
+        run: npm run eslint
+
       - name: Compile Backend Server
         run: npm run build
 
       - name: Create DB Schema
         run: npm run schema postgres root
-
-      - name: Lint Check
-        run: npm run eslint
 
       - name: Run Tests
         run: npm run test -- --reset true --simultaneous 16
