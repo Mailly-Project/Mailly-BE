@@ -45,7 +45,11 @@
     "@nestjs/throttler": "^6.4.0",
     "@prisma/client": "^6.4.1",
     "cache-manager": "^6.4.0",
+    "dotenv": "^16.4.7",
+    "dotenv-expand": "^12.0.1",
+    "prisma": "^6.4.1",
     "source-map-support": "^0.5.21",
+    "tstl": "^3.0.0",
     "typia": "^7.6.4"
   },
   "devDependencies": {
@@ -59,7 +63,6 @@
     "nestia": "^6.4.0",
     "prettier": "^3.5.3",
     "prettier-plugin-prisma": "^5.0.0",
-    "prisma": "^6.4.1",
     "prisma-markdown": "^1.0.9",
     "rimraf": "^6.0.1",
     "swagger-ui-express": "^5.0.1",
