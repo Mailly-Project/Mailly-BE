@@ -5,13 +5,13 @@ import { Singleton } from "tstl";
 import typia from "typia";
 
 /**
- * Global enviroments for the application.
+ * Global environments for the application.
  *
  * @author luke0408
  * @see https://github.com/samchon/backend/blob/master/src/MyGlobal.ts
  * @since 2025-02-28
  */
-export class GlobalEnviroments {
+export class GlobalEnvironments {
   public static readonly testing: boolean = false;
 
   public static readonly prisma: PrismaClient = new PrismaClient();
@@ -38,7 +38,7 @@ export class GlobalEnviroments {
    *     - `dev`: Development mode.
    *     - `prod`: Production mode.
    */
-  public static setMode(mode: typeof GlobalEnviroments.mode): void {
+  public static setMode(mode: typeof GlobalEnvironments.mode): void {
     typia.assert<typeof mode>(mode);
     modeWrapper.value = mode;
   }

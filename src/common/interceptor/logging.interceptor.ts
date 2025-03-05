@@ -6,7 +6,7 @@ import {
 } from "@nestjs/common";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
-import { GlobalEnviroments } from "../../config/enviroments.config";
+import { GlobalEnvironments } from "../../config/environments.config";
 
 /**
  * An interceptor that logs the request and response of the application.
@@ -31,14 +31,14 @@ export class LoggingInterceptor implements NestInterceptor {
    */
   intercept(
     context: ExecutionContext,
-    next: CallHandler<any>,
+    next: CallHandler<any>
   ): Observable<any> | Promise<Observable<any>> {
     const request = context.switchToHttp().getRequest();
     const { path } = request;
 
     return next.handle().pipe(
       tap((response) => {
-        if (GlobalEnviroments.mode.toString() !== "test") {
+        if (GlobalEnvironments.mode.toString() !== "test") {
           const requestToResponse: `${number}ms` = `${Date.now() - request.now}ms`;
           console.log(`
               Logging
@@ -48,7 +48,7 @@ export class LoggingInterceptor implements NestInterceptor {
               Response : ${JSON.stringify(response, null, 2)}
             `);
         }
-      }),
+      })
     );
   }
 }
