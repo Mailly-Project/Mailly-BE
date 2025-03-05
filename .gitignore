@@ -96,7 +96,6 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
 .env.test
 .env.dev
 .env.local
@@ -139,3 +138,5 @@ src/api
 
 lib/
 bin/
+
+prisma/migrations
