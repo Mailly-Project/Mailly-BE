@@ -31,7 +31,7 @@ export class LoggingInterceptor implements NestInterceptor {
    */
   intercept(
     context: ExecutionContext,
-    next: CallHandler<any>
+    next: CallHandler<any>,
   ): Observable<any> | Promise<Observable<any>> {
     const request = context.switchToHttp().getRequest();
     const { path } = request;
@@ -48,7 +48,7 @@ export class LoggingInterceptor implements NestInterceptor {
               Response : ${JSON.stringify(response, null, 2)}
             `);
         }
-      })
+      }),
     );
   }
 }
