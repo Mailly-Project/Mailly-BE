@@ -21,6 +21,8 @@ updates:
       - dependency-name: "typescript"
       - dependency-name: "typescript-transform-paths"
       - dependency-name: "ts-patch"
+      - dependency-name: "rxjs"
+      - dependency-name: "rxjs-operators"
     groups:
       Samchon:
         patterns:
@@ -40,6 +42,10 @@ updates:
           - "typescript"
           - "typescript-transform-paths"
           - "ts-patch"
+      RxJS:
+        patterns:
+          - "rxjs"
+          - "rxjs-operators"
   ##############################
   #         API Package        #
   ##############################
