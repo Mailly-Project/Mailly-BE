@@ -30,7 +30,8 @@
     "------------------------DEPLOYS------------------------": "",
     "start": "node lib/executable/server",
     "start:dev": "nest start --watch",
-    "start:swagger": "ts-node src/executable/swagger"
+    "start:swagger": "ts-node src/executable/swagger",
+    "schema": "ts-node src/executable/schema"
   },
   "dependencies": {
     "@nestia/core": "^4.6.2",
