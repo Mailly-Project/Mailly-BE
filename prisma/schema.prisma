@@ -20,7 +20,50 @@ generator markdown {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
+  id    Int    @id @default(autoincrement())
+  email String @unique
   name  String?
+
+  newsletters      Newsletter[]
+  notifications Notification[]
+}
+
+model Newsletter {
+  id         Int      @id @default(autoincrement())
+  sender     String
+  user_id     Int
+  content    String
+  received_at DateTime
+
+  user       User     @relation(fields: [user_id], references: [id])
+  summary    Summary?
+}
+
+model Summary {
+  id              Int      @id @default(autoincrement())
+  newsletter_id    Int @unique
+  summary_content  String
+
+  newsletter      Newsletter @relation(fields: [newsletter_id], references: [id])
+  cache          Cache?
+  notifications Notification[]
+}
+
+model Cache {
+  id           Int      @id @default(autoincrement())
+  summary_id    Int @unique
+  cached_content String
+  ttl          DateTime
+
+  summary      Summary  @relation(fields: [summary_id], references: [id])
+}
+
+model Notification {
+  id         Int      @id @default(autoincrement())
+  user_id     Int
+  summary_id  Int
+  pushed_at   DateTime
+
+  user       User     @relation(fields: [user_id], references: [id])
+  summary    Summary  @relation(fields: [summary_id], references: [id])
 }
