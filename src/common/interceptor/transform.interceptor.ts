@@ -1,4 +1,8 @@
-import { InitialPaginationResponseType, PaginationForm, ResponseForm } from "../types";
+import {
+  InitialPaginationResponseType,
+  PaginationForm,
+  ResponseForm,
+} from "../types";
 
 /**
  * Calculate the total number of results and total number of pages.
@@ -13,7 +17,7 @@ import { InitialPaginationResponseType, PaginationForm, ResponseForm } from "../
  */
 const listTotalCount = (
   totalCount: number = 0,
-  limit: number = 0
+  limit: number = 0,
 ): { totalResult: number; totalPage: number } => {
   const totalResult = totalCount;
   const totalPage =
@@ -34,7 +38,7 @@ const listTotalCount = (
  * @param {string} [paginationInfo.search] - The optional search query.
  * @param {`${number}ms`} [requestToResponse] - The optional request to response time in milliseconds.
  * @returns {PaginationForm<ResponseType>} The pagination form response object.
- * 
+ *
  * @author luke
  * @since 2025.03.02
  */
@@ -43,7 +47,7 @@ export function createPaginationForm<
 >(
   responseDate: ResponseType,
   paginationInfo: { limit: number; page: number; search?: string },
-  requestToResponse?: `${number}ms`
+  requestToResponse?: `${number}ms`,
 ): PaginationForm<ResponseType> {
   const { limit, page, search } = paginationInfo;
   const { totalPage, totalResult } = listTotalCount(responseDate.count, limit);
@@ -70,13 +74,13 @@ export function createPaginationForm<
  * @param {T} data - The data to be included in the response form.
  * @param {`${number}ms`} [requestToResponse] - Optional request-to-response time in milliseconds.
  * @returns {ResponseForm<T>} The response form object containing the result, code, request-to-response time, and data.
- * 
+ *
  * @author luke
  * @since 2025.03.02
  */
 export function createResponseForm<T>(
   data: T,
-  requestToResponse?: `${number}ms`
+  requestToResponse?: `${number}ms`,
 ): ResponseForm<T> {
   return {
     result: true,

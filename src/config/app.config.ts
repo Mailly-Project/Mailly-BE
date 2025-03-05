@@ -1,12 +1,12 @@
 import path from "path";
-import { GlobalEnviroments } from "./enviroments.config";
+import { GlobalEnvironments } from "./environments.config";
 
 const EXTENSION = __filename.slice(-2);
-if (EXTENSION === 'js') require("source-map-support").install();
+if (EXTENSION === "js") require("source-map-support").install();
 
 /**
  * Global configuration for the application.
- * 
+ *
  * @author luke
  * @since 2025-03-01
  */
@@ -24,7 +24,7 @@ export namespace GlobalConfig {
   /**
    * The port number of the API server.
    */
-  export const API_PORT = () => Number(GlobalEnviroments.env.API_PORT);
+  export const API_PORT = () => Number(GlobalEnvironments.env.API_PORT);
 }
 
 /**
