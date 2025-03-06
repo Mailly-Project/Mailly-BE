@@ -12,21 +12,21 @@ export namespace Setup {
   export async function schema(): Promise<void> {
     if (GlobalEnvironments.testing === false) {
       throw new Error(
-        "Error on Setup.schema(): unable to reset database in non-test mode.",
+        "Error on Setup.schema(): unable to reset database in non-test mode."
       );
     }
 
     const execute = (type: string) => (argv: string) =>
       cp.execSync(
         `npx prisma migrate ${type} --schema=prisma/schema.prisma ${argv}`,
-        { stdio: "inherit" },
+        { stdio: "inherit" }
       );
     execute("reset")("--force");
     execute("dev")("--name init");
 
-    await GlobalEnvironments.prisma.$executeRawUnsafe(
-      `GRANT SELECT ON ALL TABLES IN SCHEMA ${GlobalEnvironments.env.POSTGRES_SCHEMA} TO ${GlobalEnvironments.env.POSTGRES_USERNAME_READONLY}`,
-    );
+    //    await GlobalEnvironments.prisma.$executeRawUnsafe(
+    //      `GRANT SELECT ON ALL TABLES IN SCHEMA ${GlobalEnvironments.env.POSTGRES_SCHEMA} TO ${GlobalEnvironments.env.POSTGRES_USERNAME_READONLY}`,
+    //    );
   }
 
   /**

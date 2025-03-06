@@ -49,21 +49,21 @@ async function main(): Promise<void> {
       CREATE USER ${config.username} WITH ENCRYPTED PASSWORD '${config.password}';
       ALTER ROLE ${config.username} WITH CREATEDB;
       CREATE DATABASE ${config.database} OWNER ${config.username};
-    `,
-  );
-
-  await execute(
-    config.database,
-    root.account,
-    root.password,
     `
-      GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA ${config.schema} TO ${config.username};
-
-      CREATE USER ${config.readonlyUsername} WITH ENCRYPTED PASSWORD '${config.password}';
-      GRANT USAGE ON SCHEMA ${config.schema} TO ${config.readonlyUsername};
-      GRANT SELECT ON ALL TABLES IN SCHEMA ${config.schema} TO ${config.readonlyUsername};
-    `,
   );
+
+//  await execute(
+//    config.database,
+//    root.account,
+//    root.password,
+//    `
+//      GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA ${config.schema} TO ${config.username};
+//
+//      CREATE USER ${config.readonlyUsername} WITH ENCRYPTED PASSWORD '${config.password}';
+//      GRANT USAGE ON SCHEMA ${config.schema} TO ${config.readonlyUsername};
+//      GRANT SELECT ON ALL TABLES IN SCHEMA ${config.schema} TO ${config.readonlyUsername};
+//    `
+//  );
 
   GlobalEnvironments.testing = true;
   await Setup.schema();
@@ -87,7 +87,7 @@ async function execute(
   database: string,
   username: string,
   password: string,
-  script: string,
+  script: string
 ): Promise<void> {
   try {
     const POSTGRES_HOST = GlobalEnvironments.env.POSTGRES_HOST;
