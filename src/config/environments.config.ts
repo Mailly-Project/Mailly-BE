@@ -27,7 +27,11 @@ export class GlobalEnvironments {
    *     - `prod`: Production mode.
    */
   public static get mode(): SystemModeValue {
-    return (modeWrapper.value ??= environments.get().MODE);
+    if (modeWrapper.value === undefined) {
+      modeWrapper.value = environments.get().MODE;
+    }
+
+    return modeWrapper.value;
   }
 
   /**
