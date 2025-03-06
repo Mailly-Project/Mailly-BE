@@ -28,7 +28,7 @@ export namespace ArgumentParser {
     // TAKE OPTIONS
     const action = (closure: (options: Partial<T>) => Promise<T>) =>
       new Promise<T>((resolve, reject) => {
-        commander.program.action(async (options) => {
+        commander.program.action(async (options: any) => {
           try {
             resolve(await closure(options));
           } catch (exp) {
