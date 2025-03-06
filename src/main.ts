@@ -2,6 +2,7 @@ import { INestApplication } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 
 import { AppModule } from "./app.module";
+import { GlobalConfig } from "./config/app.config";
 
 export class BackendApplication {
   private application_?: INestApplication;
@@ -12,7 +13,7 @@ export class BackendApplication {
 
     // DO OPEN
     this.application_.enableCors();
-    await this.application_.listen(3000, "0.0.0.0"); // TODO: 2025.02.26(luke0408) - Use config
+    await this.application_.listen(GlobalConfig.API_PORT(), "0.0.0.0");
   }
 
   public async close(): Promise<void> {
