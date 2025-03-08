@@ -5,8 +5,12 @@ import { ERROR } from "../errors";
  */
 
 export type Merge<F, S> = {
-  [k in keyof (F & S)]: k extends keyof S ? S[k] : k extends keyof F ? F[k] : never;
-}
+  [k in keyof (F & S)]: k extends keyof S
+    ? S[k]
+    : k extends keyof F
+      ? F[k]
+      : never;
+};
 
 /**
  * Response Types
@@ -26,9 +30,11 @@ export interface PaginationForm<T extends InitialPaginationResponseType> {
   data: PaginationResponseType<T>;
 }
 
-export interface PaginationResponseType<T extends InitialPaginationResponseType> {
-  list: T['list'];
-  count: T['count'];
+export interface PaginationResponseType<
+  T extends InitialPaginationResponseType,
+> {
+  list: T["list"];
+  count: T["count"];
   totalResult: number;
   totalPage: number;
   search?: string;
@@ -42,5 +48,9 @@ export interface InitialPaginationResponseType {
 
 export type Try<T> = ResponseForm<T>;
 export type TryCatch<T, E extends ERROR> = ResponseForm<T> | E;
-export type TryPagination<T extends InitialPaginationResponseType> = PaginationForm<T>;
-export type TryCatchPagination<T extends InitialPaginationResponseType, E extends ERROR> = PaginationForm<T> | E;
+export type TryPagination<T extends InitialPaginationResponseType> =
+  PaginationForm<T>;
+export type TryCatchPagination<
+  T extends InitialPaginationResponseType,
+  E extends ERROR,
+> = PaginationForm<T> | E;

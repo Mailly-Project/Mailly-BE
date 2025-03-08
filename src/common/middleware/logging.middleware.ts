@@ -1,12 +1,12 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
-import { NextFunction } from 'express';
+import { Injectable, NestMiddleware } from "@nestjs/common";
+import { NextFunction } from "express";
 
 /**
  * Logger middleware that logs
- * 
+ *
  * @class LoggerMiddleware
  * @implements {NestMiddleware}
- * 
+ *
  * @author luke
  * @since 2025-03-01
  */
