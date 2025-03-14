@@ -1,0 +1,29 @@
+//-----------------------------------------------------------
+// USER
+//----------------------------------------------------------
+/// User Account
+///
+/// Mailly Application의 모든 비회원 유저 계정을 관리합니다.
+///
+/// @namespace Users
+/// @author Luke0408
+model user_account {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// User name
+  ///
+  /// @maxLength 255
+  name String @db.VarChar
+
+  /// Creation time of record.
+  created_at DateTime @db.Timestamptz
+
+  /// Update time of record.
+  updated_at DateTime @db.Timestamptz()
+}

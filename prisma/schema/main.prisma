@@ -13,5 +13,5 @@ generator client {
 generator markdown {
   provider = "prisma-markdown"
   title    = "Mailly"
-  output   = "../docs/ERD.md"
+  output   = "../../docs/ERD.md"
 }
