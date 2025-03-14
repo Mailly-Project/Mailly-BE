@@ -181,7 +181,7 @@ model Recipient {
 /// 활성화된 기기에 대한 정보는 캐시에 저장되어 다중 접속을 차단합니다.
 ///
 /// @namespace Account
-/// @autor Luke0408
+/// @author Luke0408
 model Device {
   //----
   // COLUMNS
