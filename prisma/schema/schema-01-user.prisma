@@ -3,7 +3,7 @@
 //----------------------------------------------------------
 /// User Account
 ///
-/// Mailly Application의 모든 비회원 유저 계정을 관리합니다.
+/// Mailly의 비회원 유저 계정을 관리합니다.
 ///
 /// @namespace Users
 /// @author Luke0408
@@ -26,4 +26,43 @@ model user_account {
 
   /// Update time of record.
   updated_at DateTime @db.Timestamptz()
+
+  //----
+  // RELATIONS
+  //----
+  member_account member_account?
+}
+
+/// Member Account
+///
+/// Mailly의 회원 유저 계정을 관리합니다.
+///
+/// @namespace Users
+/// @author Luke0408
+model member_account {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  user_account_id String @unique @db.Uuid
+
+  /// Member name
+  ///
+  /// @maxLength 255
+  name String @db.VarChar
+
+  /// Creation time of record.
+  created_at DateTime @db.Timestamptz
+
+  /// Update time of record.
+  updated_at DateTime @db.Timestamptz()
+
+  //----
+  // RELATIONS
+  //----
+  before user_account @relation(fields: [user_account_id], references: [id], onDelete: NoAction)
 }

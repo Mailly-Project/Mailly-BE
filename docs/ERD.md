@@ -12,15 +12,35 @@ erDiagram
   DateTime created_at
   DateTime updated_at
 }
+"member_account" {
+  String id PK
+  String user_account_id FK
+  String name
+  DateTime created_at
+  DateTime updated_at
+}
+"member_account" |o--|| "user_account" : before
 ```
 
 ### `user_account`
 User Account
 
-Mailly Application의 모든 비회원 유저 계정을 관리합니다.
+Mailly의 비회원 유저 계정을 관리합니다.
 
 **Properties**
   - `id`: Primary Key.
   - `name`: User name
+  - `created_at`: Creation time of record.
+  - `updated_at`: Update time of record.
+
+### `member_account`
+Member Account
+
+Mailly의 회원 유저 계정을 관리합니다.
+
+**Properties**
+  - `id`: Primary Key.
+  - `user_account_id`: 
+  - `name`: Member name
   - `created_at`: Creation time of record.
   - `updated_at`: Update time of record.
