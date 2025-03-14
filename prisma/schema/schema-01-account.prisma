@@ -1,11 +1,11 @@
 //-----------------------------------------------------------
-// USER
+// ACCOUNT
 //----------------------------------------------------------
 /// User Account
 ///
 /// Mailly의 비회원 유저 계정을 관리합니다.
 ///
-/// @namespace Users
+/// @namespace Account
 /// @author Luke0408
 model user_account {
   //----
@@ -40,7 +40,7 @@ model user_account {
 ///
 /// Mailly의 회원 유저 계정을 관리합니다.
 ///
-/// @namespace Users
+/// @namespace Account
 /// @author Luke0408
 model member_account {
   //----
@@ -83,7 +83,7 @@ model member_account {
 /// 비회원인 상태에서 글을 읽었던 사용자가 회원으로 전환했을 경우 회원 계정의 정보를 연결하여,
 /// 계정 전환 이전의 읽기 기록을 유지할 수 있도록 돕습니다.
 ///
-/// @namespace Users
+/// @namespace Account
 /// @author Luke0408
 model Reader {
   //----
@@ -130,7 +130,7 @@ model Reader {
 /// 비회원인 상태에서 글을 읽었던 사용자가 회원으로 전환했을 경우 회원 계정의 정보를 연결하여,
 /// 계정 전환 이전의 수신 받았던 알림 기록을 유지할 수 있도록 돕습니다.
 ///
-/// @namespace Users
+/// @namespace Account
 /// @author Luke0408
 model Recipient {
   //----
@@ -180,7 +180,7 @@ model Recipient {
 ///
 /// 활성화된 기기에 대한 정보는 캐시에 저장되어 다중 접속을 차단합니다.
 ///
-/// @namespace Users
+/// @namespace Account
 /// @autor Luke0408
 model Device {
   //----
