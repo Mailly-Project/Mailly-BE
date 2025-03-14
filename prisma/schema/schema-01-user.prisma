@@ -33,6 +33,7 @@ model user_account {
   member_details     member_account?
   user_reads         Reader[]
   user_notifications Recipient[]
+  Device             Device[]
 }
 
 /// Member Account
@@ -69,6 +70,7 @@ model member_account {
   user_details         user_account @relation(fields: [user_account_id], references: [id], onDelete: NoAction)
   member_reads         Reader[]
   member_notifications Recipient[]
+  Device               Device[]
 }
 
 /// Reader
@@ -166,5 +168,51 @@ model Recipient {
   received_by_member member_account? @relation(fields: [member_account_id], references: [id])
 
   @@index([created_at])
-  @@map("Recipent")
+}
+
+/// Device
+///
+/// Mailly 사용자의 로그인 기기를 저장하는 저장소입니다.
+/// iOS/Android device ID를 저장합니다.
+///
+/// User는 Device와 1:1로 연결되며, Member는 Device와 1:n으로 연결됩니다.
+/// 비회원으로 사용하던 유저가 회원으로 변경한다면 Device에 대한 정보에 Member account가 추가됩니다.
+///
+/// 활성화된 기기에 대한 정보는 캐시에 저장되어 다중 접속을 차단합니다.
+///
+/// @namespace Users
+/// @autor Luke0408
+model Device {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// Device ID
+  ///
+  /// iOS/Android device ID를 저장합니다.
+  ///
+  /// @maxLength 255
+  device_id String @db.VarChar
+
+  user_account_id String? @db.Uuid
+
+  member_account_id String? @db.Uuid
+
+  /// Creation time of record.
+  created_at DateTime @db.Timestamptz
+
+  /// Update time of record.
+  updated_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  owner_user   user_account?   @relation(fields: [user_account_id], references: [id])
+  owner_member member_account? @relation(fields: [member_account_id], references: [id])
+
+  @@index([device_id])
 }

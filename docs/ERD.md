@@ -25,18 +25,28 @@ erDiagram
   String member_account_id FK "nullable"
   DateTime created_at
 }
-"Recipent" {
+"Recipient" {
   String id PK
   String user_account_id FK "nullable"
   String member_account_id FK "nullable"
   DateTime created_at
   DateTime deleted_at
 }
+"Device" {
+  String id PK
+  String device_id
+  String user_account_id FK "nullable"
+  String member_account_id FK "nullable"
+  DateTime created_at
+  DateTime updated_at
+}
 "member_account" |o--|| "user_account" : user_details
 "Reader" }o--o| "user_account" : read_by_user
 "Reader" }o--o| "member_account" : read_by_member
-"Recipent" }o--o| "user_account" : received_by_user
-"Recipent" }o--o| "member_account" : received_by_member
+"Recipient" }o--o| "user_account" : received_by_user
+"Recipient" }o--o| "member_account" : received_by_member
+"Device" }o--o| "user_account" : owner_user
+"Device" }o--o| "member_account" : owner_member
 ```
 
 ### `user_account`
@@ -85,7 +95,7 @@ Mailly 베타 버전에서 Reader의 의미는 "읽었다"라는 의미로 Feed�
     > 글을 읽은 Member(회원)에 대한 정보를 연결합니다.
   - `created_at`: Creation time of record.
 
-### `Recipent`
+### `Recipient`
 Recipient
 
 Mailly 사용자의 Recipient Actor 입니다.
@@ -108,3 +118,25 @@ Mailly 베타 버전에서 Recipient의 의미는 "알림을 수신하였다"라
     > 알림을 수신한 Member(회원)에 대한 정보를 연결합니다.
   - `created_at`: Creation time of record.
   - `deleted_at`: Deletion time for record.
+
+### `Device`
+Device
+
+Mailly 사용자의 로그인 기기를 저장하는 저장소입니다.
+iOS/Android device ID를 저장합니다.
+
+User는 Device와 1:1로 연결되며, Member는 Device와 1:n으로 연결됩니다.
+비회원으로 사용하던 유저가 회원으로 변경한다면 Device에 대한 정보에 Member account가 추가됩니다.
+
+활성화된 기기에 대한 정보는 캐시에 저장되어 다중 접속을 차단합니다.
+
+**Properties**
+  - `id`: Primary Key.
+  - `device_id`
+    > Device ID
+    > 
+    > iOS/Android device ID를 저장합니다.
+  - `user_account_id`: 
+  - `member_account_id`: 
+  - `created_at`: Creation time of record.
+  - `updated_at`: Update time of record.
