@@ -32,7 +32,7 @@ erDiagram
   DateTime created_at
   DateTime deleted_at
 }
-"member_account" |o--|| "user_account" : before
+"member_account" |o--|| "user_account" : user_details
 "Reader" }o--o| "user_account" : read_by_user
 "Reader" }o--o| "member_account" : read_by_member
 "Recipent" }o--o| "user_account" : received_by_user

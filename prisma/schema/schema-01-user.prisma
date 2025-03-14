@@ -30,9 +30,9 @@ model user_account {
   //----
   // RELATIONS
   //----
-  member_account member_account?
-  Reader         Reader[]
-  Recipient      Recipient[]
+  member_details     member_account?
+  user_reads         Reader[]
+  user_notifications Recipient[]
 }
 
 /// Member Account
@@ -66,9 +66,9 @@ model member_account {
   //----
   // RELATIONS
   //----
-  before    user_account @relation(fields: [user_account_id], references: [id], onDelete: NoAction)
-  Reader    Reader[]
-  Recipient Recipient[]
+  user_details         user_account @relation(fields: [user_account_id], references: [id], onDelete: NoAction)
+  member_reads         Reader[]
+  member_notifications Recipient[]
 }
 
 /// Reader
