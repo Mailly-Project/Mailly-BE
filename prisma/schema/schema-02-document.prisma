@@ -28,6 +28,8 @@ model document {
   // RELATIONS
   //----
   pubilsher pubilsher? @relation(fields: [pubilsher_id], references: [id])
+
+  tags topic_tag[]
 }
 
 /// Pubilsher Entitiy
@@ -56,4 +58,61 @@ model pubilsher {
   // RELATIONS
   //----
   documents document[]
+}
+
+/// Topic
+///
+/// 문서 분류에 사용될 Topic입니다.
+///
+/// @namespace Document
+/// @author Luke0408
+model topic {
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// Topic name
+  ///
+  /// @maxLength 255
+  name String @unique @db.VarChar
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  taged_docs topic_tag[]
+
+  @@index([name])
+}
+
+/// Topic Tag
+///
+/// 문서 분류에 사용될 Topic을 문서에 연결합니다.
+///
+/// @namespace Document
+/// @author Luke0408
+model topic_tag {
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  topic_id    String? @db.Uuid
+  document_id String? @db.Uuid
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  topic    topic?    @relation(fields: [topic_id], references: [id])
+  document document? @relation(fields: [document_id], references: [id])
 }

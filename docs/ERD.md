@@ -157,7 +157,20 @@ erDiagram
   String name
   DateTime created_at
 }
+"topic" {
+  String id PK
+  String name UK
+  DateTime created_at
+}
+"topic_tag" {
+  String id PK
+  String topic_id FK "nullable"
+  String document_id FK "nullable"
+  DateTime created_at
+}
 "document" }o--o| "pubilsher" : pubilsher
+"topic_tag" }o--o| "topic" : topic
+"topic_tag" }o--o| "document" : document
 ```
 
 ### `document`
@@ -178,4 +191,25 @@ Pubilsher Entitiy
 **Properties**
   - `id`: Primary Key.
   - `name`: pubilsher name
+  - `created_at`: Creation time of record
+
+### `topic`
+Topic
+
+문서 분류에 사용될 Topic입니다.
+
+**Properties**
+  - `id`: Primary Key.
+  - `name`: Topic name
+  - `created_at`: Creation time of record
+
+### `topic_tag`
+Topic Tag
+
+문서 분류에 사용될 Topic을 문서에 연결합니다.
+
+**Properties**
+  - `id`: Primary Key.
+  - `topic_id`: 
+  - `document_id`: 
   - `created_at`: Creation time of record
