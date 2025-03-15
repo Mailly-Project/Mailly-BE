@@ -149,12 +149,23 @@ erDiagram
 "document" {
   String id PK
   String url
-  String pubilsher_id FK "nullable"
+  String pubilsher_id FK
+  String newsletter_id FK "nullable"
+  DateTime pubilshed_at
   DateTime created_at
 }
 "pubilsher" {
   String id PK
   String name
+  String offcial_email "nullable"
+  String newsletter_email "nullable"
+  DateTime created_at
+}
+"newsletter" {
+  String id PK
+  String title
+  String pubilsher_id FK "nullable"
+  DateTime pubilshed_at
   DateTime created_at
 }
 "topic" {
@@ -168,7 +179,9 @@ erDiagram
   String document_id FK "nullable"
   DateTime created_at
 }
-"document" }o--o| "pubilsher" : pubilsher
+"document" }o--|| "pubilsher" : pubilsher
+"document" }o--o| "newsletter" : newsletter
+"newsletter" }o--o| "pubilsher" : pubilsher
 "topic_tag" }o--o| "topic" : topic
 "topic_tag" }o--o| "document" : document
 ```
@@ -179,7 +192,16 @@ Document Entity
 **Properties**
   - `id`: Primary Key.
   - `url`: 원본 글 url
-  - `pubilsher_id`: 
+  - `pubilsher_id`: 발행자 정보
+  - `newsletter_id`
+    > 뉴스레터 정보
+    > 
+    > 관련된 뉴스레터가 없을 수 있습니다.
+  - `pubilshed_at`
+    > Pubilsh Time
+    > 
+    > 실제로 해당 뉴스레터가 발행된 "일자"를 저장합니다.
+    > "일자"의 기준은 가장 처음 해당 뉴스레터가 발견되었을 때를 기준으로 합니다.
   - `created_at`: Creation time of record
 
 ### `pubilsher`
@@ -191,6 +213,30 @@ Pubilsher Entitiy
 **Properties**
   - `id`: Primary Key.
   - `name`: pubilsher name
+  - `offcial_email`
+    > Offcial Email
+    > 
+    > 발행자의 메인 이메일을 말합니다.
+    > 기업의 경우 기업 공식 이메일을 지칭하며, 
+    > 개인의 경우 공개된 비지니스 이메일을 저장합니다.
+  - `newsletter_email`
+    > NewsLetter Email
+    > 
+    > 발행자의 NewsLetter 발행용 Email을 저장합니다.
+  - `created_at`: Creation time of record
+
+### `newsletter`
+NewsLetter
+
+**Properties**
+  - `id`: Primary Key.
+  - `title`: News Letter Title
+  - `pubilsher_id`: Pubilsher
+  - `pubilshed_at`
+    > Pubilsh Time
+    > 
+    > 실제로 해당 뉴스레터가 발행된 "일자"를 저장합니다.
+    > "일자"의 기준은 가장 처음 해당 뉴스레터가 발견되었을 때를 기준으로 합니다.
   - `created_at`: Creation time of record
 
 ### `topic`

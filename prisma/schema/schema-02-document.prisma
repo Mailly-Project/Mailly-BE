@@ -19,7 +19,20 @@ model document {
   /// @format url
   url String @db.VarChar
 
-  pubilsher_id String? @db.Uuid
+  /// 발행자 정보
+  pubilsher_id String @db.Uuid
+
+  /// 뉴스레터 정보
+  ///
+  /// 관련된 뉴스레터가 없을 수 있습니다.
+  newsletter_id String? @db.Uuid
+
+  /// Pubilsh Time
+  ///
+  /// 실제로 해당 뉴스레터가 발행된 "일자"를 저장합니다.
+  /// "일자"의 기준은 가장 처음 해당 뉴스레터가 발견되었을 때를 기준으로 합니다.
+  ///
+  pubilshed_at DateTime @db.Timestamptz
 
   /// Creation time of record
   created_at DateTime @db.Timestamptz
@@ -27,7 +40,8 @@ model document {
   //----
   // RELATIONS
   //----
-  pubilsher pubilsher? @relation(fields: [pubilsher_id], references: [id])
+  pubilsher  pubilsher   @relation(fields: [pubilsher_id], references: [id])
+  newsletter newsletter? @relation(fields: [newsletter_id], references: [id])
 
   tags topic_tag[]
 }
@@ -51,12 +65,68 @@ model pubilsher {
   /// pubilsher name
   name String @db.VarChar
 
+  /// Offcial Email
+  /// 
+  /// 발행자의 메인 이메일을 말합니다.
+  /// 기업의 경우 기업 공식 이메일을 지칭하며, 
+  /// 개인의 경우 공개된 비지니스 이메일을 저장합니다.
+  ///
+  /// @format email
+  offcial_email String? @db.VarChar
+
+  /// NewsLetter Email
+  ///
+  /// 발행자의 NewsLetter 발행용 Email을 저장합니다.
+  ///
+  /// @format email
+  newsletter_email String? @db.VarChar
+
   /// Creation time of record
   created_at DateTime @db.Timestamptz
 
   //----
   // RELATIONS
   //----
+  documents   document[]
+  newsletters newsletter[]
+}
+
+/// NewsLetter
+///
+/// @namespace Document
+/// @author Luke0408
+model newsletter {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// News Letter Title
+  ///
+  /// @maxLength 255
+  title String @db.VarChar
+
+  /// Pubilsher
+  pubilsher_id String? @db.Uuid
+
+  /// Pubilsh Time
+  ///
+  /// 실제로 해당 뉴스레터가 발행된 "일자"를 저장합니다.
+  /// "일자"의 기준은 가장 처음 해당 뉴스레터가 발견되었을 때를 기준으로 합니다.
+  ///
+  pubilshed_at DateTime @db.Timestamptz
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  pubilsher pubilsher? @relation(fields: [pubilsher_id], references: [id])
+
   documents document[]
 }
 
