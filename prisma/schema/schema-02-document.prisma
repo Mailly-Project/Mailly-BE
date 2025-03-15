@@ -1,0 +1,59 @@
+//-----------------------------------------------------------
+// DOCUMENT
+//----------------------------------------------------------
+/// Document Entity
+///
+/// @namespace Document
+/// @author Luke0408
+model document {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// 원본 글 url
+  ///
+  /// @format url
+  url String @db.VarChar
+
+  pubilsher_id String? @db.Uuid
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  pubilsher pubilsher? @relation(fields: [pubilsher_id], references: [id])
+}
+
+/// Pubilsher Entitiy
+///
+/// 원본 글, 뉴스레터 등을 발행한 문서 발행자 정보를 담습니다.
+/// 문서의 발행자는 글의 작성자와는 다르며 기업, 단체, 개인 등이 발행자로 등록될 수 있습니다.
+///
+/// @namespace Document
+/// @author Luke0408
+model pubilsher {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// pubilsher name
+  name String @db.VarChar
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  documents document[]
+}
