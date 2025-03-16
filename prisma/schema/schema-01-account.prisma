@@ -170,6 +170,8 @@ model reader {
   read_by_user   user_account?   @relation(fields: [user_account_id], references: [id])
   read_by_member member_account? @relation(fields: [member_account_id], references: [id])
 
+  feed feed[]
+
   @@index([created_at])
 }
 

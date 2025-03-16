@@ -185,6 +185,19 @@ erDiagram
   DateTime published_at
   DateTime created_at
 }
+"summary" {
+  String id PK
+  String document_id FK
+  String content
+  DateTime created_at
+}
+"feed" {
+  String id PK
+  String document_id FK
+  String summary_id FK
+  String reader_id FK
+  DateTime created_at
+}
 "publisher" {
   String id PK
   String name
@@ -230,6 +243,9 @@ erDiagram
 }
 "document" }o--|| "publisher" : publisher
 "document" }o--o| "newsletter" : newsletter
+"summary" |o--|| "document" : document
+"feed" |o--|| "document" : document
+"feed" |o--|| "summary" : summary
 "publisher_sub" }o--|| "publisher" : publisher
 "newsletter" }o--o| "publisher" : publisher
 "newsletter_sub" }o--|| "newsletter" : newsletter
@@ -254,6 +270,25 @@ Document Entity
     > 
     > 실제로 해당 뉴스레터가 발행된 "일자"를 저장합니다.
     > "일자"의 기준은 가장 처음 해당 뉴스레터가 발견되었을 때를 기준으로 합니다.
+  - `created_at`: Creation time of record
+
+### `summary`
+Summary Entity
+
+**Properties**
+  - `id`: Primary Key.
+  - `document_id`: 본문 문서 정보
+  - `content`: 요약된 Text를 저장합니다.
+  - `created_at`: Creation time of record
+
+### `feed`
+Feed Entity
+
+**Properties**
+  - `id`: Primary Key.
+  - `document_id`: 본문 문서 정보
+  - `summary_id`: 요약 문서 정보
+  - `reader_id`: 독자 정보
   - `created_at`: Creation time of record
 
 ### `publisher`

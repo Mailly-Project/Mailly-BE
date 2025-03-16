@@ -43,7 +43,73 @@ model document {
   publisher  publisher   @relation(fields: [publisher_id], references: [id])
   newsletter newsletter? @relation(fields: [newsletter_id], references: [id])
 
+  feed    feed?
+  summary summary?
+
   tags topic_tag[]
+}
+
+/// Summary Entity
+///
+/// @namespace Document
+/// @author Luke0408
+model summary {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// 본문 문서 정보
+  document_id String @unique @db.Uuid
+
+  /// 요약된 Text를 저장합니다.
+  content String @db.Text
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  document document @relation(fields: [document_id], references: [id])
+
+  feed feed?
+}
+
+/// Feed Entity
+///
+/// @namespace Document
+/// @author Luke0408
+model feed {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// 본문 문서 정보
+  document_id String @unique @db.Uuid
+
+  /// 요약 문서 정보
+  summary_id String @unique @db.Uuid
+
+  /// 독자 정보
+  reader_id String @db.Uuid
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  document document @relation(fields: [document_id], references: [id])
+  summary  summary  @relation(fields: [summary_id], references: [id])
+  reader   reader   @relation(fields: [reader_id], references: [id])
 }
 
 /// publisher Entity
