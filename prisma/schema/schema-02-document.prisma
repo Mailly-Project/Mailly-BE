@@ -20,7 +20,7 @@ model document {
   url String @db.VarChar
 
   /// 발행자 정보
-  pubilsher_id String @db.Uuid
+  publisher_id String @db.Uuid
 
   /// 뉴스레터 정보
   ///
@@ -32,7 +32,7 @@ model document {
   /// 실제로 해당 뉴스레터가 발행된 "일자"를 저장합니다.
   /// "일자"의 기준은 가장 처음 해당 뉴스레터가 발견되었을 때를 기준으로 합니다.
   ///
-  pubilshed_at DateTime @db.Timestamptz
+  published_at DateTime @db.Timestamptz
 
   /// Creation time of record
   created_at DateTime @db.Timestamptz
@@ -40,20 +40,20 @@ model document {
   //----
   // RELATIONS
   //----
-  pubilsher  pubilsher   @relation(fields: [pubilsher_id], references: [id])
+  publisher  publisher   @relation(fields: [publisher_id], references: [id])
   newsletter newsletter? @relation(fields: [newsletter_id], references: [id])
 
   tags topic_tag[]
 }
 
-/// Pubilsher Entitiy
+/// publisher Entitiy
 ///
 /// 원본 글, 뉴스레터 등을 발행한 문서 발행자 정보를 담습니다.
 /// 문서의 발행자는 글의 작성자와는 다르며 기업, 단체, 개인 등이 발행자로 등록될 수 있습니다.
 ///
 /// @namespace Document
 /// @author Luke0408
-model pubilsher {
+model publisher {
   //----
   // COLUMNS
   //----
@@ -62,7 +62,7 @@ model pubilsher {
   /// @format uuid
   id String @id @db.Uuid
 
-  /// pubilsher name
+  /// publisher name
   name String @db.VarChar
 
   /// Offcial Email
@@ -109,8 +109,8 @@ model newsletter {
   /// @maxLength 255
   title String @db.VarChar
 
-  /// Pubilsher
-  pubilsher_id String? @db.Uuid
+  /// publisher
+  publisher_id String? @db.Uuid
 
   /// Pubilsh Time
   ///
@@ -125,7 +125,7 @@ model newsletter {
   //----
   // RELATIONS
   //----
-  pubilsher pubilsher? @relation(fields: [pubilsher_id], references: [id])
+  publisher publisher? @relation(fields: [publisher_id], references: [id])
 
   documents document[]
 }
