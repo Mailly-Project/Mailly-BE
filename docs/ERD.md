@@ -149,12 +149,12 @@ erDiagram
 "document" {
   String id PK
   String url
-  String pubilsher_id FK
+  String publisher_id FK
   String newsletter_id FK "nullable"
-  DateTime pubilshed_at
+  DateTime published_at
   DateTime created_at
 }
-"pubilsher" {
+"publisher" {
   String id PK
   String name
   String offcial_email "nullable"
@@ -164,7 +164,7 @@ erDiagram
 "newsletter" {
   String id PK
   String title
-  String pubilsher_id FK "nullable"
+  String publisher_id FK "nullable"
   DateTime pubilshed_at
   DateTime created_at
 }
@@ -179,9 +179,9 @@ erDiagram
   String document_id FK "nullable"
   DateTime created_at
 }
-"document" }o--|| "pubilsher" : pubilsher
+"document" }o--|| "publisher" : publisher
 "document" }o--o| "newsletter" : newsletter
-"newsletter" }o--o| "pubilsher" : pubilsher
+"newsletter" }o--o| "publisher" : publisher
 "topic_tag" }o--o| "topic" : topic
 "topic_tag" }o--o| "document" : document
 ```
@@ -192,27 +192,27 @@ Document Entity
 **Properties**
   - `id`: Primary Key.
   - `url`: 원본 글 url
-  - `pubilsher_id`: 발행자 정보
+  - `publisher_id`: 발행자 정보
   - `newsletter_id`
     > 뉴스레터 정보
     > 
     > 관련된 뉴스레터가 없을 수 있습니다.
-  - `pubilshed_at`
+  - `published_at`
     > Pubilsh Time
     > 
     > 실제로 해당 뉴스레터가 발행된 "일자"를 저장합니다.
     > "일자"의 기준은 가장 처음 해당 뉴스레터가 발견되었을 때를 기준으로 합니다.
   - `created_at`: Creation time of record
 
-### `pubilsher`
-Pubilsher Entitiy
+### `publisher`
+publisher Entitiy
 
 원본 글, 뉴스레터 등을 발행한 문서 발행자 정보를 담습니다.
 문서의 발행자는 글의 작성자와는 다르며 기업, 단체, 개인 등이 발행자로 등록될 수 있습니다.
 
 **Properties**
   - `id`: Primary Key.
-  - `name`: pubilsher name
+  - `name`: publisher name
   - `offcial_email`
     > Offcial Email
     > 
@@ -231,7 +231,7 @@ NewsLetter
 **Properties**
   - `id`: Primary Key.
   - `title`: News Letter Title
-  - `pubilsher_id`: Pubilsher
+  - `publisher_id`: publisher
   - `pubilshed_at`
     > Pubilsh Time
     > 
