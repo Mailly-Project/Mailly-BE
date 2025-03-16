@@ -1,0 +1,338 @@
+//-----------------------------------------------------------
+// DOCUMENT
+//----------------------------------------------------------
+/// Document Entity
+///
+/// @namespace Document
+/// @author Luke0408
+model document {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// 원본 글 url
+  ///
+  /// @format url
+  url String @db.VarChar
+
+  /// 발행자 정보
+  publisher_id String @db.Uuid
+
+  /// 뉴스레터 정보
+  ///
+  /// 관련된 뉴스레터가 없을 수 있습니다.
+  newsletter_id String? @db.Uuid
+
+  /// Publish Time
+  ///
+  /// 실제로 해당 뉴스레터가 발행된 "일자"를 저장합니다.
+  /// "일자"의 기준은 가장 처음 해당 뉴스레터가 발견되었을 때를 기준으로 합니다.
+  ///
+  published_at DateTime @db.Timestamptz
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  publisher  publisher   @relation(fields: [publisher_id], references: [id])
+  newsletter newsletter? @relation(fields: [newsletter_id], references: [id])
+
+  feed    feed?
+  summary summary?
+
+  tags topic_tag[]
+}
+
+/// Summary Entity
+///
+/// @namespace Document
+/// @author Luke0408
+model summary {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// 본문 문서 정보
+  document_id String @unique @db.Uuid
+
+  /// 요약된 Text를 저장합니다.
+  content String @db.Text
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  document document @relation(fields: [document_id], references: [id])
+
+  feed feed?
+}
+
+/// Feed Entity
+///
+/// @namespace Document
+/// @author Luke0408
+model feed {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// 본문 문서 정보
+  document_id String @unique @db.Uuid
+
+  /// 요약 문서 정보
+  summary_id String @unique @db.Uuid
+
+  /// 독자 정보
+  reader_id String @db.Uuid
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  document document @relation(fields: [document_id], references: [id])
+  summary  summary  @relation(fields: [summary_id], references: [id])
+  reader   reader   @relation(fields: [reader_id], references: [id])
+}
+
+/// publisher Entity
+///
+/// 원본 글, 뉴스레터 등을 발행한 문서 발행자 정보를 담습니다.
+/// 문서의 발행자는 글의 작성자와는 다르며 기업, 단체, 개인 등이 발행자로 등록될 수 있습니다.
+///
+/// @namespace Document
+/// @author Luke0408
+model publisher {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// publisher name
+  name String @db.VarChar
+
+  /// Official Email
+  /// 
+  /// 발행자의 메인 이메일을 말합니다.
+  /// 기업의 경우 기업 공식 이메일을 지칭하며, 
+  /// 개인의 경우 공개된 비지니스 이메일을 저장합니다.
+  ///
+  /// @format email
+  official_email String? @db.VarChar
+
+  /// NewsLetter Email
+  ///
+  /// 발행자의 NewsLetter 발행용 Email을 저장합니다.
+  ///
+  /// @format email
+  newsletter_email String? @db.VarChar
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  documents     document[]
+  newsletters   newsletter[]
+  publisher_sub publisher_sub[]
+}
+
+/// Publisher Subscript
+///
+/// 사용자의 관심 발행자 구독 내역을 관리합니다.
+///
+/// @namespace Document
+/// @author Luke0408
+model publisher_sub {
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  publisher_id  String @db.Uuid
+  subscriber_id String @db.Uuid
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  publisher  publisher  @relation(fields: [publisher_id], references: [id])
+  subscriber subscriber @relation(fields: [subscriber_id], references: [id])
+}
+
+/// NewsLetter
+///
+/// @namespace Document
+/// @author Luke0408
+model newsletter {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// News Letter Title
+  ///
+  /// @maxLength 255
+  title String @db.VarChar
+
+  /// publisher
+  publisher_id String? @db.Uuid
+
+  /// Publish Time
+  ///
+  /// 실제로 해당 뉴스레터가 발행된 "일자"를 저장합니다.
+  /// "일자"의 기준은 가장 처음 해당 뉴스레터가 발견되었을 때를 기준으로 합니다.
+  ///
+  published_at DateTime @db.Timestamptz
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  publisher publisher? @relation(fields: [publisher_id], references: [id])
+
+  documents      document[]
+  newsletter_sub newsletter_sub[]
+}
+
+/// Newsletter Subscript
+///
+/// 사용자의 뉴스레터 구독 내역을 관리합니다.
+///
+/// @namespace Document
+/// @author Luke0408
+model newsletter_sub {
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  newsletter_id String @db.Uuid
+  subscriber_id String @db.Uuid
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  newsletter newsletter @relation(fields: [newsletter_id], references: [id])
+  subscriber subscriber @relation(fields: [subscriber_id], references: [id])
+}
+
+/// Topic
+///
+/// 문서 분류에 사용될 Topic입니다.
+///
+/// @namespace Document
+/// @author Luke0408
+model topic {
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// Topic name
+  ///
+  /// @maxLength 255
+  name String @unique @db.VarChar
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  tagged_docs topic_tag[]
+  topic_sub   topic_sub[]
+
+  @@index([name])
+}
+
+/// Topic Tag
+///
+/// 문서 분류에 사용될 Topic을 문서에 연결합니다.
+///
+/// @namespace Document
+/// @author Luke0408
+model topic_tag {
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  topic_id    String? @db.Uuid
+  document_id String? @db.Uuid
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  topic    topic?    @relation(fields: [topic_id], references: [id])
+  document document? @relation(fields: [document_id], references: [id])
+}
+
+/// Topic Subscript
+///
+/// 사용자의 관심 분야 구독 내역을 관리합니다.
+///
+/// @namespace Document
+/// @author Luke0408
+model topic_sub {
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  topic_id      String @db.Uuid
+  subscriber_id String @db.Uuid
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  topic      topic      @relation(fields: [topic_id], references: [id])
+  subscriber subscriber @relation(fields: [subscriber_id], references: [id])
+}

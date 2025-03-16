@@ -1,0 +1,282 @@
+//-----------------------------------------------------------
+// ACCOUNT
+//----------------------------------------------------------
+/// User Account
+///
+/// Mailly의 비회원 유저 계정을 관리합니다.
+///
+/// @namespace Account
+/// @author Luke0408
+model user_account {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// User name
+  ///
+  /// @maxLength 255
+  name String @db.VarChar
+
+  /// Creation time of record.
+  created_at DateTime @db.Timestamptz
+
+  /// Update time of record.
+  updated_at DateTime @db.Timestamptz()
+
+  //----
+  // RELATIONS
+  //----
+  member_details     member_account?
+  user_reads         reader[]
+  user_notifications recipient[]
+  Device             device[]
+  subscriber         subscriber[]
+}
+
+/// Member Account
+///
+/// Mailly의 회원 유저 계정을 관리합니다.
+///
+/// @namespace Account
+/// @author Luke0408
+model member_account {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  user_account_id String @unique @db.Uuid
+
+  /// Member name
+  ///
+  /// @maxLength 255
+  name String @db.VarChar
+
+  /// Creation time of record.
+  created_at DateTime @db.Timestamptz
+
+  /// Update time of record.
+  updated_at DateTime @db.Timestamptz()
+
+  //----
+  // RELATIONS
+  //----
+  user_details         user_account @relation(fields: [user_account_id], references: [id], onDelete: NoAction)
+  member_reads         reader[]
+  member_notifications recipient[]
+  Device               device[]
+  subscriber           subscriber[]
+}
+
+/// Subscriber
+///
+/// Mailly 사용자의 Subscript Actor 입니다.
+/// 구독과 관련된 모든 행위를 정의 합니다.
+///
+/// 구독 행위:
+/// - 관심 분야 선택
+/// - 뉴스레터 구독
+/// - 발행자 구독 등
+///
+/// @namespace Account
+/// @author Luke0408
+model subscriber {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// User Account
+  ///
+  /// 구독을 진행한 User(비회원)에 대한 정보를 연결합니다.
+  ///
+  /// @format uuid
+  user_account_id String? @db.Uuid
+
+  /// Member Account
+  ///
+  /// 구독을 진행한 Member(회원)에 대한 정보를 연결합니다.
+  ///
+  /// @format uuid
+  member_account_id String? @db.Uuid
+
+  /// Creation time of record.
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  subscript_by_user   user_account?   @relation(fields: [user_account_id], references: [id])
+  subscript_by_member member_account? @relation(fields: [member_account_id], references: [id])
+
+  topics      topic_sub[]
+  publishers  publisher_sub[]
+  newsletters newsletter_sub[]
+
+  @@index([created_at])
+}
+
+/// Reader
+///
+/// Mailly 사용자의 Read Actor 입니다.
+/// Reader는 "읽기"활동을 실제로 진행하는 Entity로, 회원/비회원 사용자에게서 생성될 수 있습니다.
+///
+/// Mailly 베타 버전에서 Reader의 의미는 "읽었다"라는 의미로 Feed를 읽을 때 생성됩니다.
+/// 
+/// 비회원인 상태에서 글을 읽었던 사용자가 회원으로 전환했을 경우 회원 계정의 정보를 연결하여,
+/// 계정 전환 이전의 읽기 기록을 유지할 수 있도록 돕습니다.
+///
+/// @namespace Account
+/// @author Luke0408
+model reader {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// User Account
+  ///
+  /// 글을 읽은 User(비회원)에 대한 정보를 연결합니다.
+  ///
+  /// @format uuid
+  user_account_id String? @db.Uuid
+
+  /// Member Account
+  ///
+  /// 글을 읽은 Member(회원)에 대한 정보를 연결합니다.
+  ///
+  /// @format uuid
+  member_account_id String? @db.Uuid
+
+  /// Creation time of record.
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  read_by_user   user_account?   @relation(fields: [user_account_id], references: [id])
+  read_by_member member_account? @relation(fields: [member_account_id], references: [id])
+
+  feed feed[]
+
+  @@index([created_at])
+}
+
+/// Recipient
+///
+/// Mailly 사용자의 Recipient Actor 입니다.
+/// Recipient는 "알림 수신"활동을 실제로 진행하는 Entity로, 회원/비회원 사용자에게서 생성될 수 있습니다.
+///
+/// Mailly 베타 버전에서 Recipient의 의미는 "알림을 수신하였다"라는 의미로 Notification를 읽을 때 생성됩니다.
+/// 
+/// 비회원인 상태에서 글을 읽었던 사용자가 회원으로 전환했을 경우 회원 계정의 정보를 연결하여,
+/// 계정 전환 이전의 수신 받았던 알림 기록을 유지할 수 있도록 돕습니다.
+///
+/// @namespace Account
+/// @author Luke0408
+model recipient {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// User Account
+  ///
+  /// 알림을 수신한 User(비회원)에 대한 정보를 연결합니다.
+  ///
+  /// @format uuid
+  user_account_id String? @db.Uuid
+
+  /// Member Account
+  ///
+  /// 알림을 수신한 Member(회원)에 대한 정보를 연결합니다.
+  ///
+  /// @format uuid
+  member_account_id String? @db.Uuid
+
+  /// Creation time of record.
+  created_at DateTime @db.Timestamptz
+
+  /// Deletion time for record.
+  deleted_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  received_by_user   user_account?   @relation(fields: [user_account_id], references: [id])
+  received_by_member member_account? @relation(fields: [member_account_id], references: [id])
+
+  notification notification[]
+
+  @@index([created_at])
+}
+
+/// Device
+///
+/// Mailly 사용자의 로그인 기기를 저장하는 저장소입니다.
+/// iOS/Android device ID를 저장합니다.
+///
+/// User는 Device와 1:1로 연결되며, Member는 Device와 1:n으로 연결됩니다.
+/// 비회원으로 사용하던 유저가 회원으로 변경한다면 Device에 대한 정보에 Member account가 추가됩니다.
+///
+/// 활성화된 기기에 대한 정보는 캐시에 저장되어 다중 접속을 차단합니다.
+///
+/// @namespace Account
+/// @author Luke0408
+model device {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// device ID
+  ///
+  /// iOS/Android device ID를 저장합니다.
+  ///
+  /// @maxLength 255
+  device_id String @db.VarChar
+
+  /// 기기의 유형 (android, ios, web 등)
+  ///
+  /// @maxLength 255
+  type String @db.VarChar
+
+  user_account_id String? @db.Uuid
+
+  member_account_id String? @db.Uuid
+
+  /// Creation time of record.
+  created_at DateTime @db.Timestamptz
+
+  /// Update time of record.
+  updated_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  owner_user   user_account?   @relation(fields: [user_account_id], references: [id])
+  owner_member member_account? @relation(fields: [member_account_id], references: [id])
+
+  notification notification[]
+
+  @@index([device_id])
+}
