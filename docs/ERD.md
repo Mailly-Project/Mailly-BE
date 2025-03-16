@@ -3,6 +3,7 @@
 
 - [Account](#account)
 - [Document](#document)
+- [Notification](#notification)
 
 ## Account
 ```mermaid
@@ -42,6 +43,7 @@ erDiagram
 "device" {
   String id PK
   String device_id
+  String type
   String user_account_id FK "nullable"
   String member_account_id FK "nullable"
   DateTime created_at
@@ -168,6 +170,7 @@ User는 Device와 1:1로 연결되며, Member는 Device와 1:n으로 연결됩�
     > device ID
     > 
     > iOS/Android device ID를 저장합니다.
+  - `type`: 기기의 유형 (android, ios, web 등)
   - `user_account_id`: 
   - `member_account_id`: 
   - `created_at`: Creation time of record.
@@ -379,3 +382,73 @@ Topic Subscript
   - `topic_id`: 
   - `subscriber_id`: 
   - `created_at`: Creation time of record
+
+
+## Notification
+```mermaid
+erDiagram
+"notification" {
+  String id PK
+  String actor_type
+  String actor_id "nullable"
+  String actor_name "nullable"
+  String recipient_id FK
+  String device_id FK
+  String device_token
+  String message_type
+  String message_title
+  String message_content "nullable"
+  String message_target_link "nullable"
+  Boolean is_read
+  Boolean is_seen
+  DateTime created_at
+  DateTime updated_at "nullable"
+}
+```
+
+### `notification`
+Notification Entity
+
+**Properties**
+  - `id`: Primary Key.
+  - `actor_type`
+    > actor type
+    > 
+    > 알림을 발생 시킨 주체의 유형
+    > (ex. system, publisher, newsletter)
+  - `actor_id`
+    > actor id
+    > 
+    > 알림을 발생 시킨 주체의 ID
+    > (ex. 특정 Actor ID)
+  - `actor_name`
+    > actor name
+    > 
+    > 알림을 발생시킨 주체의 이름
+  - `recipient_id`: recipient id
+  - `device_id`: device id
+  - `device_token`: FCM device token
+  - `message_type`
+    > message type
+    > 
+    > 알림의 유형 정보를 설정합니다.
+    > (ex. feed_update, summary_ready, system_alert)
+  - `message_title`
+    > message title
+    > 
+    > message의 title을 작성합니다.
+  - `message_content`
+    > message content
+    > 
+    > messgae를 선택하면 나오는 알림 상새 내용
+  - `message_target_link`
+    > message deeplink
+    > 
+    > message를 선택하면 이동할 링크
+  - `is_read`
+    > 사용자가 읽었는지 여부
+    > 
+    > 읽었다의 기준: notification을 클릭했다는 것
+  - `is_seen`: 사용자가 화면에서 봤는지 여부
+  - `created_at`: Creation time of record.
+  - `updated_at`: Update time of record.

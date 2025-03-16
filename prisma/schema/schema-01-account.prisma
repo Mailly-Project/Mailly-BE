@@ -222,6 +222,8 @@ model recipient {
   received_by_user   user_account?   @relation(fields: [user_account_id], references: [id])
   received_by_member member_account? @relation(fields: [member_account_id], references: [id])
 
+  notification notification[]
+
   @@index([created_at])
 }
 
@@ -253,6 +255,11 @@ model device {
   /// @maxLength 255
   device_id String @db.VarChar
 
+  /// 기기의 유형 (android, ios, web 등)
+  ///
+  /// @maxLength 255
+  type String @db.VarChar
+
   user_account_id String? @db.Uuid
 
   member_account_id String? @db.Uuid
@@ -268,6 +275,8 @@ model device {
   //----
   owner_user   user_account?   @relation(fields: [user_account_id], references: [id])
   owner_member member_account? @relation(fields: [member_account_id], references: [id])
+
+  notification notification[]
 
   @@index([device_id])
 }

@@ -1,0 +1,89 @@
+//-----------------------------------------------------------
+// NOTIFICATION
+//----------------------------------------------------------
+/// Notification Entity
+///
+/// @namespace Notification
+/// @author Luke0408
+model notification {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// actor type
+  ///
+  /// 알림을 발생 시킨 주체의 유형
+  /// (ex. system, publisher, newsletter)
+  actor_type String @db.VarChar
+
+  /// actor id
+  ///
+  /// 알림을 발생 시킨 주체의 ID
+  /// (ex. 특정 Actor ID)
+  ///
+  /// @format UUID
+  actor_id String? @db.Uuid
+
+  /// actor name
+  ///
+  /// 알림을 발생시킨 주체의 이름
+  actor_name String? @db.VarChar
+
+  /// recipient id
+  recipient_id String @db.Uuid
+
+  /// device id
+  device_id String @db.Uuid
+
+  /// FCM device token
+  device_token String
+
+  /// message type
+  ///
+  /// 알림의 유형 정보를 설정합니다.
+  /// (ex. feed_update, summary_ready, system_alert)
+  message_type String @db.VarChar
+
+  /// message title
+  ///
+  /// message의 title을 작성합니다.
+  message_title String @db.VarChar
+
+  /// message content
+  ///
+  /// messgae를 선택하면 나오는 알림 상새 내용
+  message_content String? @db.VarChar
+
+  /// message deeplink
+  ///
+  /// message를 선택하면 이동할 링크
+  ///
+  /// @format url
+  message_target_link String? @db.VarChar
+
+  /// 사용자가 읽었는지 여부
+  ///
+  /// 읽었다의 기준: notification을 클릭했다는 것
+  is_read Boolean @default(false) @db.Boolean
+
+  /// 사용자가 화면에서 봤는지 여부
+  is_seen Boolean @default(false) @db.Boolean
+
+  /// Creation time of record.
+  created_at DateTime @db.Timestamptz
+
+  /// Update time of record.
+  updated_at DateTime? @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  recipient recipient @relation(fields: [recipient_id], references: [id])
+  device    device    @relation(fields: [device_id], references: [id])
+
+  @@index([recipient_id, is_read, is_seen])
+}
