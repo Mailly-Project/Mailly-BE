@@ -20,6 +20,12 @@ erDiagram
   DateTime created_at
   DateTime updated_at
 }
+"subscriber" {
+  String id PK
+  String user_account_id FK "nullable"
+  String member_account_id FK "nullable"
+  DateTime created_at
+}
 "Reader" {
   String id PK
   String user_account_id FK "nullable"
@@ -42,6 +48,8 @@ erDiagram
   DateTime updated_at
 }
 "member_account" |o--|| "user_account" : user_details
+"subscriber" }o--o| "user_account" : subscript_by_user
+"subscriber" }o--o| "member_account" : subscript_by_member
 "Reader" }o--o| "user_account" : read_by_user
 "Reader" }o--o| "member_account" : read_by_member
 "Recipient" }o--o| "user_account" : received_by_user
@@ -72,6 +80,29 @@ Mailly의 회원 유저 계정을 관리합니다.
   - `name`: Member name
   - `created_at`: Creation time of record.
   - `updated_at`: Update time of record.
+
+### `subscriber`
+Subscriber
+
+Mailly 사용자의 Subscript Actor 입니다.
+구독과 관련된 모든 행위를 정의 합니다.
+
+구독 행위:
+- 관심 분야 선택
+- 뉴스레터 구독
+- 발행자 구독 등
+
+**Properties**
+  - `id`: Primary Key.
+  - `user_account_id`
+    > User Account
+    > 
+    > 구독을 진행한 User(비회원)에 대한 정보를 연결합니다.
+  - `member_account_id`
+    > Member Account
+    > 
+    > 구독을 진행한 Member(회원)에 대한 정보를 연결합니다.
+  - `created_at`: Creation time of record.
 
 ### `Reader`
 Reader

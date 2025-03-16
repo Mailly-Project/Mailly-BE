@@ -34,6 +34,7 @@ model user_account {
   user_reads         Reader[]
   user_notifications Recipient[]
   Device             Device[]
+  subscriber         subscriber[]
 }
 
 /// Member Account
@@ -71,6 +72,54 @@ model member_account {
   member_reads         Reader[]
   member_notifications Recipient[]
   Device               Device[]
+  subscriber           subscriber[]
+}
+
+/// Subscriber
+///
+/// Mailly 사용자의 Subscript Actor 입니다.
+/// 구독과 관련된 모든 행위를 정의 합니다.
+///
+/// 구독 행위:
+/// - 관심 분야 선택
+/// - 뉴스레터 구독
+/// - 발행자 구독 등
+///
+/// @namespace Account
+/// @author Luke0408
+model subscriber {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// User Account
+  ///
+  /// 구독을 진행한 User(비회원)에 대한 정보를 연결합니다.
+  ///
+  /// @format uuid
+  user_account_id String? @db.Uuid
+
+  /// Member Account
+  ///
+  /// 구독을 진행한 Member(회원)에 대한 정보를 연결합니다.
+  ///
+  /// @format uuid
+  member_account_id String? @db.Uuid
+
+  /// Creation time of record.
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  subscript_by_user   user_account?   @relation(fields: [user_account_id], references: [id])
+  subscript_by_member member_account? @relation(fields: [member_account_id], references: [id])
+
+  @@index([created_at])
 }
 
 /// Reader
