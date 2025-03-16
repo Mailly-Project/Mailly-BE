@@ -87,8 +87,9 @@ model publisher {
   //----
   // RELATIONS
   //----
-  documents   document[]
-  newsletters newsletter[]
+  documents     document[]
+  newsletters   newsletter[]
+  publisher_sub publisher_sub[]
 }
 
 /// NewsLetter
@@ -212,5 +213,32 @@ model topic_sub {
   // RELATIONS
   //----
   topic      topic      @relation(fields: [topic_id], references: [id])
+  subscriber subscriber @relation(fields: [subscriber_id], references: [id])
+}
+
+/// Publisher Subscript
+///
+/// 사용자의 관심 발행자 구독 내역을 관리합니다.
+///
+/// @namespace Document
+/// @author Luke0408
+model publisher_sub {
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  publisher_id  String @db.Uuid
+  subscriber_id String @db.Uuid
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  publisher  publisher  @relation(fields: [publisher_id], references: [id])
   subscriber subscriber @relation(fields: [subscriber_id], references: [id])
 }

@@ -216,12 +216,19 @@ erDiagram
   String subscriber_id FK
   DateTime created_at
 }
+"publisher_sub" {
+  String id PK
+  String publisher_id FK
+  String subscriber_id FK
+  DateTime created_at
+}
 "document" }o--|| "publisher" : publisher
 "document" }o--o| "newsletter" : newsletter
 "newsletter" }o--o| "publisher" : publisher
 "topic_tag" }o--o| "topic" : topic
 "topic_tag" }o--o| "document" : document
 "topic_sub" }o--|| "topic" : topic
+"publisher_sub" }o--|| "publisher" : publisher
 ```
 
 ### `document`
@@ -306,5 +313,16 @@ Topic Subscript
 **Properties**
   - `id`: Primary Key.
   - `topic_id`: 
+  - `subscriber_id`: 
+  - `created_at`: Creation time of record
+
+### `publisher_sub`
+Publisher Subscript
+
+사용자의 관심 발행자 구독 내역을 관리합니다.
+
+**Properties**
+  - `id`: Primary Key.
+  - `publisher_id`: 
   - `subscriber_id`: 
   - `created_at`: Creation time of record
