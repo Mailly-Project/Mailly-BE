@@ -210,11 +210,18 @@ erDiagram
   String document_id FK "nullable"
   DateTime created_at
 }
+"topic_sub" {
+  String id PK
+  String topic_id FK
+  String subscriber_id FK
+  DateTime created_at
+}
 "document" }o--|| "publisher" : publisher
 "document" }o--o| "newsletter" : newsletter
 "newsletter" }o--o| "publisher" : publisher
 "topic_tag" }o--o| "topic" : topic
 "topic_tag" }o--o| "document" : document
+"topic_sub" }o--|| "topic" : topic
 ```
 
 ### `document`
@@ -289,4 +296,15 @@ Topic Tag
   - `id`: Primary Key.
   - `topic_id`: 
   - `document_id`: 
+  - `created_at`: Creation time of record
+
+### `topic_sub`
+Topic Subscript
+
+사용자의 관심 분야 구독 내역을 관리합니다.
+
+**Properties**
+  - `id`: Primary Key.
+  - `topic_id`: 
+  - `subscriber_id`: 
   - `created_at`: Creation time of record

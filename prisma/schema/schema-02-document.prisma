@@ -156,6 +156,7 @@ model topic {
   // RELATIONS
   //----
   tagged_docs topic_tag[]
+  topic_sub   topic_sub[]
 
   @@index([name])
 }
@@ -185,4 +186,31 @@ model topic_tag {
   //----
   topic    topic?    @relation(fields: [topic_id], references: [id])
   document document? @relation(fields: [document_id], references: [id])
+}
+
+/// Topic Subscript
+///
+/// 사용자의 관심 분야 구독 내역을 관리합니다.
+///
+/// @namespace Document
+/// @author Luke0408
+model topic_sub {
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  topic_id      String @db.Uuid
+  subscriber_id String @db.Uuid
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  topic      topic      @relation(fields: [topic_id], references: [id])
+  subscriber subscriber @relation(fields: [subscriber_id], references: [id])
 }
