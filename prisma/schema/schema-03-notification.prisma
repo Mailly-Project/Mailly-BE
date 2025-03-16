@@ -55,7 +55,7 @@ model notification {
 
   /// message content
   ///
-  /// messgae를 선택하면 나오는 알림 상새 내용
+  /// message를 선택하면 나오는 알림 상새 내용
   message_content String? @db.VarChar
 
   /// message deeplink

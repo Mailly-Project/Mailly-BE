@@ -440,7 +440,7 @@ Notification Entity
   - `message_content`
     > message content
     > 
-    > messgae를 선택하면 나오는 알림 상새 내용
+    > message를 선택하면 나오는 알림 상새 내용
   - `message_target_link`
     > message deeplink
     > 
