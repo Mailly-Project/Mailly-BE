@@ -26,20 +26,20 @@ erDiagram
   String member_account_id FK "nullable"
   DateTime created_at
 }
-"Reader" {
+"reader" {
   String id PK
   String user_account_id FK "nullable"
   String member_account_id FK "nullable"
   DateTime created_at
 }
-"Recipient" {
+"recipient" {
   String id PK
   String user_account_id FK "nullable"
   String member_account_id FK "nullable"
   DateTime created_at
   DateTime deleted_at
 }
-"Device" {
+"device" {
   String id PK
   String device_id
   String user_account_id FK "nullable"
@@ -50,12 +50,12 @@ erDiagram
 "member_account" |o--|| "user_account" : user_details
 "subscriber" }o--o| "user_account" : subscript_by_user
 "subscriber" }o--o| "member_account" : subscript_by_member
-"Reader" }o--o| "user_account" : read_by_user
-"Reader" }o--o| "member_account" : read_by_member
-"Recipient" }o--o| "user_account" : received_by_user
-"Recipient" }o--o| "member_account" : received_by_member
-"Device" }o--o| "user_account" : owner_user
-"Device" }o--o| "member_account" : owner_member
+"reader" }o--o| "user_account" : read_by_user
+"reader" }o--o| "member_account" : read_by_member
+"recipient" }o--o| "user_account" : received_by_user
+"recipient" }o--o| "member_account" : received_by_member
+"device" }o--o| "user_account" : owner_user
+"device" }o--o| "member_account" : owner_member
 ```
 
 ### `user_account`
@@ -104,7 +104,7 @@ Mailly 사용자의 Subscript Actor 입니다.
     > 구독을 진행한 Member(회원)에 대한 정보를 연결합니다.
   - `created_at`: Creation time of record.
 
-### `Reader`
+### `reader`
 Reader
 
 Mailly 사용자의 Read Actor 입니다.
@@ -127,7 +127,7 @@ Mailly 베타 버전에서 Reader의 의미는 "읽었다"라는 의미로 Feed�
     > 글을 읽은 Member(회원)에 대한 정보를 연결합니다.
   - `created_at`: Creation time of record.
 
-### `Recipient`
+### `recipient`
 Recipient
 
 Mailly 사용자의 Recipient Actor 입니다.
@@ -151,7 +151,7 @@ Mailly 베타 버전에서 Recipient의 의미는 "알림을 수신하였다"라
   - `created_at`: Creation time of record.
   - `deleted_at`: Deletion time for record.
 
-### `Device`
+### `device`
 Device
 
 Mailly 사용자의 로그인 기기를 저장하는 저장소입니다.
@@ -165,7 +165,7 @@ User는 Device와 1:1로 연결되며, Member는 Device와 1:n으로 연결됩�
 **Properties**
   - `id`: Primary Key.
   - `device_id`
-    > Device ID
+    > device ID
     > 
     > iOS/Android device ID를 저장합니다.
   - `user_account_id`: 
@@ -188,7 +188,7 @@ erDiagram
 "publisher" {
   String id PK
   String name
-  String offcial_email "nullable"
+  String official_email "nullable"
   String newsletter_email "nullable"
   DateTime created_at
 }
@@ -196,7 +196,7 @@ erDiagram
   String id PK
   String title
   String publisher_id FK "nullable"
-  DateTime pubilshed_at
+  DateTime published_at
   DateTime created_at
 }
 "topic" {
@@ -229,14 +229,14 @@ Document Entity
     > 
     > 관련된 뉴스레터가 없을 수 있습니다.
   - `published_at`
-    > Pubilsh Time
+    > Publish Time
     > 
     > 실제로 해당 뉴스레터가 발행된 "일자"를 저장합니다.
     > "일자"의 기준은 가장 처음 해당 뉴스레터가 발견되었을 때를 기준으로 합니다.
   - `created_at`: Creation time of record
 
 ### `publisher`
-publisher Entitiy
+publisher Entity
 
 원본 글, 뉴스레터 등을 발행한 문서 발행자 정보를 담습니다.
 문서의 발행자는 글의 작성자와는 다르며 기업, 단체, 개인 등이 발행자로 등록될 수 있습니다.
@@ -244,8 +244,8 @@ publisher Entitiy
 **Properties**
   - `id`: Primary Key.
   - `name`: publisher name
-  - `offcial_email`
-    > Offcial Email
+  - `official_email`
+    > Official Email
     > 
     > 발행자의 메인 이메일을 말합니다.
     > 기업의 경우 기업 공식 이메일을 지칭하며, 
@@ -263,8 +263,8 @@ NewsLetter
   - `id`: Primary Key.
   - `title`: News Letter Title
   - `publisher_id`: publisher
-  - `pubilshed_at`
-    > Pubilsh Time
+  - `published_at`
+    > Publish Time
     > 
     > 실제로 해당 뉴스레터가 발행된 "일자"를 저장합니다.
     > "일자"의 기준은 가장 처음 해당 뉴스레터가 발견되었을 때를 기준으로 합니다.

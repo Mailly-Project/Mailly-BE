@@ -31,9 +31,9 @@ model user_account {
   // RELATIONS
   //----
   member_details     member_account?
-  user_reads         Reader[]
-  user_notifications Recipient[]
-  Device             Device[]
+  user_reads         reader[]
+  user_notifications recipient[]
+  Device             device[]
   subscriber         subscriber[]
 }
 
@@ -69,9 +69,9 @@ model member_account {
   // RELATIONS
   //----
   user_details         user_account @relation(fields: [user_account_id], references: [id], onDelete: NoAction)
-  member_reads         Reader[]
-  member_notifications Recipient[]
-  Device               Device[]
+  member_reads         reader[]
+  member_notifications recipient[]
+  Device               device[]
   subscriber           subscriber[]
 }
 
@@ -134,7 +134,7 @@ model subscriber {
 ///
 /// @namespace Account
 /// @author Luke0408
-model Reader {
+model reader {
   //----
   // COLUMNS
   //----
@@ -181,7 +181,7 @@ model Reader {
 ///
 /// @namespace Account
 /// @author Luke0408
-model Recipient {
+model recipient {
   //----
   // COLUMNS
   //----
@@ -231,7 +231,7 @@ model Recipient {
 ///
 /// @namespace Account
 /// @author Luke0408
-model Device {
+model device {
   //----
   // COLUMNS
   //----
@@ -240,7 +240,7 @@ model Device {
   /// @format uuid
   id String @id @db.Uuid
 
-  /// Device ID
+  /// device ID
   ///
   /// iOS/Android device ID를 저장합니다.
   ///
