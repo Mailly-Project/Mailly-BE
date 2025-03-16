@@ -92,6 +92,33 @@ model publisher {
   publisher_sub publisher_sub[]
 }
 
+/// Publisher Subscript
+///
+/// 사용자의 관심 발행자 구독 내역을 관리합니다.
+///
+/// @namespace Document
+/// @author Luke0408
+model publisher_sub {
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  publisher_id  String @db.Uuid
+  subscriber_id String @db.Uuid
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  publisher  publisher  @relation(fields: [publisher_id], references: [id])
+  subscriber subscriber @relation(fields: [subscriber_id], references: [id])
+}
+
 /// NewsLetter
 ///
 /// @namespace Document
@@ -128,7 +155,35 @@ model newsletter {
   //----
   publisher publisher? @relation(fields: [publisher_id], references: [id])
 
-  documents document[]
+  documents      document[]
+  newsletter_sub newsletter_sub[]
+}
+
+/// Newsletter Subscript
+///
+/// 사용자의 뉴스레터 구독 내역을 관리합니다.
+///
+/// @namespace Document
+/// @author Luke0408
+model newsletter_sub {
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  newsletter_id String @db.Uuid
+  subscriber_id String @db.Uuid
+
+  /// Creation time of record
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  newsletter newsletter @relation(fields: [newsletter_id], references: [id])
+  subscriber subscriber @relation(fields: [subscriber_id], references: [id])
 }
 
 /// Topic
@@ -213,32 +268,5 @@ model topic_sub {
   // RELATIONS
   //----
   topic      topic      @relation(fields: [topic_id], references: [id])
-  subscriber subscriber @relation(fields: [subscriber_id], references: [id])
-}
-
-/// Publisher Subscript
-///
-/// 사용자의 관심 발행자 구독 내역을 관리합니다.
-///
-/// @namespace Document
-/// @author Luke0408
-model publisher_sub {
-  // COLUMNS
-  //----
-  /// Primary Key.
-  ///
-  /// @format uuid
-  id String @id @db.Uuid
-
-  publisher_id  String @db.Uuid
-  subscriber_id String @db.Uuid
-
-  /// Creation time of record
-  created_at DateTime @db.Timestamptz
-
-  //----
-  // RELATIONS
-  //----
-  publisher  publisher  @relation(fields: [publisher_id], references: [id])
   subscriber subscriber @relation(fields: [subscriber_id], references: [id])
 }

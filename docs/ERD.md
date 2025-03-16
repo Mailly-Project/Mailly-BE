@@ -192,11 +192,23 @@ erDiagram
   String newsletter_email "nullable"
   DateTime created_at
 }
+"publisher_sub" {
+  String id PK
+  String publisher_id FK
+  String subscriber_id FK
+  DateTime created_at
+}
 "newsletter" {
   String id PK
   String title
   String publisher_id FK "nullable"
   DateTime published_at
+  DateTime created_at
+}
+"newsletter_sub" {
+  String id PK
+  String newsletter_id FK
+  String subscriber_id FK
   DateTime created_at
 }
 "topic" {
@@ -216,19 +228,14 @@ erDiagram
   String subscriber_id FK
   DateTime created_at
 }
-"publisher_sub" {
-  String id PK
-  String publisher_id FK
-  String subscriber_id FK
-  DateTime created_at
-}
 "document" }o--|| "publisher" : publisher
 "document" }o--o| "newsletter" : newsletter
+"publisher_sub" }o--|| "publisher" : publisher
 "newsletter" }o--o| "publisher" : publisher
+"newsletter_sub" }o--|| "newsletter" : newsletter
 "topic_tag" }o--o| "topic" : topic
 "topic_tag" }o--o| "document" : document
 "topic_sub" }o--|| "topic" : topic
-"publisher_sub" }o--|| "publisher" : publisher
 ```
 
 ### `document`
@@ -270,6 +277,17 @@ publisher Entity
     > 발행자의 NewsLetter 발행용 Email을 저장합니다.
   - `created_at`: Creation time of record
 
+### `publisher_sub`
+Publisher Subscript
+
+사용자의 관심 발행자 구독 내역을 관리합니다.
+
+**Properties**
+  - `id`: Primary Key.
+  - `publisher_id`: 
+  - `subscriber_id`: 
+  - `created_at`: Creation time of record
+
 ### `newsletter`
 NewsLetter
 
@@ -282,6 +300,17 @@ NewsLetter
     > 
     > 실제로 해당 뉴스레터가 발행된 "일자"를 저장합니다.
     > "일자"의 기준은 가장 처음 해당 뉴스레터가 발견되었을 때를 기준으로 합니다.
+  - `created_at`: Creation time of record
+
+### `newsletter_sub`
+Newsletter Subscript
+
+사용자의 뉴스레터 구독 내역을 관리합니다.
+
+**Properties**
+  - `id`: Primary Key.
+  - `newsletter_id`: 
+  - `subscriber_id`: 
   - `created_at`: Creation time of record
 
 ### `topic`
@@ -313,16 +342,5 @@ Topic Subscript
 **Properties**
   - `id`: Primary Key.
   - `topic_id`: 
-  - `subscriber_id`: 
-  - `created_at`: Creation time of record
-
-### `publisher_sub`
-Publisher Subscript
-
-사용자의 관심 발행자 구독 내역을 관리합니다.
-
-**Properties**
-  - `id`: Primary Key.
-  - `publisher_id`: 
   - `subscriber_id`: 
   - `created_at`: Creation time of record
