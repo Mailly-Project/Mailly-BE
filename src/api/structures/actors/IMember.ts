@@ -1,8 +1,8 @@
 import { tags } from "typia";
-import { IMember } from "./IMember";
+import { IUser } from "./IUser";
 
-export interface IUser extends IUser.IInvert {
-  member: null | IMember;
+export interface IMember extends IMember.IInvert {
+  user: null | IUser;
 
   reader: null;
   subscriber: null;
@@ -11,10 +11,7 @@ export interface IUser extends IUser.IInvert {
   device: null;
 }
 
-export namespace IUser {
-  /**
-   * Invert information of User
-   */
+export namespace IMember {
   export interface IInvert {
     /**
      * Primary Key
