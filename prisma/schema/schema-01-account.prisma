@@ -30,11 +30,11 @@ model user_account {
   //----
   // RELATIONS
   //----
-  member_details     member_account?
-  user_reads         reader[]
-  user_notifications recipient[]
-  Device             device[]
-  subscriber         subscriber[]
+  member_details member_account?
+  device         device?
+  read           reader[]
+  subscribe      subscriber[]
+  notification   recipient[]
 }
 
 /// Member Account
@@ -260,7 +260,7 @@ model device {
   /// @maxLength 255
   type String @db.VarChar
 
-  user_account_id String? @db.Uuid
+  user_account_id String? @unique @db.Uuid
 
   member_account_id String? @db.Uuid
 

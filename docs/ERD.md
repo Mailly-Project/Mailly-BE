@@ -56,7 +56,7 @@ erDiagram
 "reader" }o--o| "member_account" : read_by_member
 "recipient" }o--o| "user_account" : received_by_user
 "recipient" }o--o| "member_account" : received_by_member
-"device" }o--o| "user_account" : owner_user
+"device" |o--o| "user_account" : owner_user
 "device" }o--o| "member_account" : owner_member
 ```
 
