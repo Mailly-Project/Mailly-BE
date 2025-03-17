@@ -1,6 +1,6 @@
 import { tags } from "typia";
 
-export interface IUserAccount extends IUserAccount.IInvert {
+export interface IUser extends IUser.IInvert {
   member: null;
 
   reader: null;
@@ -10,7 +10,7 @@ export interface IUserAccount extends IUserAccount.IInvert {
   device: null;
 }
 
-export namespace IUserAccount {
+export namespace IUser {
   /**
    * Invert information of User
    */
