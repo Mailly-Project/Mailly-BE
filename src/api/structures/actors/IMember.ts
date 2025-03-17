@@ -1,5 +1,6 @@
 import { tags } from "typia";
 import { IUser } from "./IUser";
+import { IDevice } from "./IDevice";
 
 export interface IMember extends IMember.IInvert {
   user: null | IUser;
@@ -8,7 +9,7 @@ export interface IMember extends IMember.IInvert {
   subscriber: null;
   recipent: null;
 
-  device: null;
+  device: null | IDevice.IInvert[];
 }
 
 export namespace IMember {
