@@ -35,6 +35,7 @@
     "schema": "ts-node src/executable/schema"
   },
   "dependencies": {
+    "@kakasoo/deep-strict-types": "^2.0.3",
     "@nestia/core": "^5.0.0",
     "@nestia/e2e": "^0.8.3",
     "@nestia/fetcher": "^5.0.0",
