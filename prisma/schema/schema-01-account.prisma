@@ -119,9 +119,9 @@ model subscriber {
   subscript_by_user   user_account?   @relation(fields: [user_account_id], references: [id])
   subscript_by_member member_account? @relation(fields: [member_account_id], references: [id])
 
-  topics      topic_sub[]
-  publishers  publisher_sub[]
-  newsletters newsletter_sub[]
+  topic      topic_sub?
+  publisher  publisher_sub?
+  newsletter newsletter_sub?
 
   @@index([created_at])
 }
