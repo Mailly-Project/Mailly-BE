@@ -134,8 +134,6 @@ dist
 packages/**/*.ts
 packages/**/*.js
 
-src/api
-
 lib/
 bin/
 

@@ -38,7 +38,7 @@ erDiagram
   String user_account_id FK "nullable"
   String member_account_id FK "nullable"
   DateTime created_at
-  DateTime deleted_at
+  DateTime deleted_at "nullable"
 }
 "device" {
   String id PK
@@ -56,7 +56,7 @@ erDiagram
 "reader" }o--o| "member_account" : read_by_member
 "recipient" }o--o| "user_account" : received_by_user
 "recipient" }o--o| "member_account" : received_by_member
-"device" }o--o| "user_account" : owner_user
+"device" |o--o| "user_account" : owner_user
 "device" }o--o| "member_account" : owner_member
 ```
 

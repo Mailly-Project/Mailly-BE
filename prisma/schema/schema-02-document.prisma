@@ -173,7 +173,7 @@ model publisher_sub {
   id String @id @db.Uuid
 
   publisher_id  String @db.Uuid
-  subscriber_id String @db.Uuid
+  subscriber_id String @unique @db.Uuid
 
   /// Creation time of record
   created_at DateTime @db.Timestamptz
@@ -240,7 +240,7 @@ model newsletter_sub {
   id String @id @db.Uuid
 
   newsletter_id String @db.Uuid
-  subscriber_id String @db.Uuid
+  subscriber_id String @unique @db.Uuid
 
   /// Creation time of record
   created_at DateTime @db.Timestamptz
@@ -325,7 +325,7 @@ model topic_sub {
   id String @id @db.Uuid
 
   topic_id      String @db.Uuid
-  subscriber_id String @db.Uuid
+  subscriber_id String @unique @db.Uuid
 
   /// Creation time of record
   created_at DateTime @db.Timestamptz

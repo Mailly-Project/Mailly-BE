@@ -34,7 +34,7 @@ model notification {
   actor_name String? @db.VarChar
 
   /// recipient id
-  recipient_id String @db.Uuid
+  recipient_id String @unique @db.Uuid
 
   /// device id
   device_id String @db.Uuid
