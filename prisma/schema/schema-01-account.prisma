@@ -222,7 +222,7 @@ model recipient {
   received_by_user   user_account?   @relation(fields: [user_account_id], references: [id])
   received_by_member member_account? @relation(fields: [member_account_id], references: [id])
 
-  notification notification[]
+  notification notification?
 
   @@index([created_at])
 }
