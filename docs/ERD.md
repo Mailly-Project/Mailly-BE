@@ -38,7 +38,7 @@ erDiagram
   String user_account_id FK "nullable"
   String member_account_id FK "nullable"
   DateTime created_at
-  DateTime deleted_at
+  DateTime deleted_at "nullable"
 }
 "device" {
   String id PK

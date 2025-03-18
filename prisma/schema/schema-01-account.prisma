@@ -214,7 +214,7 @@ model recipient {
   created_at DateTime @db.Timestamptz
 
   /// Deletion time for record.
-  deleted_at DateTime @db.Timestamptz
+  deleted_at DateTime? @db.Timestamptz
 
   //----
   // RELATIONS
