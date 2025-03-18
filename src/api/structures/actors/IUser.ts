@@ -3,13 +3,14 @@ import { IMember } from "./IMember";
 import { IDevice } from "./IDevice";
 import { IReader } from "./IReader";
 import { IRecipient } from "./IRecipient";
+import { ISubscriber } from "./ISubscriber";
 
 export interface IUser extends IUser.IInvert {
   member: null | IMember.IInvert;
 
   reader: null | IReader.IInvert[];
-  subscriber: null;
-  recipent: null | IRecipient.IInvert[];
+  subscriber: null | ISubscriber.IInvert[];
+  recipient: null | IRecipient.IInvert[];
 
   device: null | IDevice.IInvert;
 }
