@@ -1,11 +1,12 @@
 import { tags } from "typia";
 import { IUser } from "./IUser";
 import { IDevice } from "./IDevice";
+import { IReader } from "./IReader";
 
 export interface IMember extends IMember.IInvert {
   user: null | IUser;
 
-  reader: null;
+  reader: null | IReader.IInvert[];
   subscriber: null;
   recipent: null;
 
