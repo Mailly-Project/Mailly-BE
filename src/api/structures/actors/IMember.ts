@@ -2,13 +2,14 @@ import { tags } from "typia";
 import { IUser } from "./IUser";
 import { IDevice } from "./IDevice";
 import { IReader } from "./IReader";
+import { IRecipient } from "./IRecipient";
 
 export interface IMember extends IMember.IInvert {
   user: null | IUser;
 
   reader: null | IReader.IInvert[];
   subscriber: null;
-  recipent: null;
+  recipent: null | IRecipient.IInvert[];
 
   device: null | IDevice.IInvert[];
 }
